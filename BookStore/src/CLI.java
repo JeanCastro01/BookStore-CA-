@@ -130,8 +130,10 @@ public class CLI {
 		  System.out.println("Books/Readers Session");
 		  System.out.println("________________");
 		  System.out.println("Press 1 - All Books in Alphabetical Order");
-		  System.out.println("Press 2 - All Readers in Aphabetical Order");
-		  System.out.println("Press 3 - Return Main Menu");
+		  System.out.println("Press 2 - All Books in ID Order");
+		  System.out.println("Press 3 - All Readers in Aphabetical Order");
+		  System.out.println("Press 4 - All Readers in ID Order");
+		  System.out.println("Press 5 - Return Main Menu");
 
 		  int option = readinguser();
 		  
@@ -141,14 +143,22 @@ public class CLI {
 		  }
 		  
 		  else if (option ==2) {
-			  System.out.println("All Readers in Aphabetical Order Below");
+			  System.out.println("All Books ID Order Below");
 		  }
 		  
 		  else if (option == 3) {
+			  System.out.println("All Readers in Alphabetical Order Below");
 			  
-			  menuoption();
 		  }
+	       else if (option == 4) {
+			  
+	    	   System.out.println("All Readers  ID Order Below");
+		  }
+      
+           else if (option == 5) {
 		  
+		  menuoption();
+	  }
 	        else  {
 	        	  
 	        	  System.out.println("Not a valid number");

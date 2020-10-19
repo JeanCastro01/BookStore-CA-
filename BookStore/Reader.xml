@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<readers>
+
+	<reader>
+	<id>01</id>
+	<fname>Jean </fname>
+	<lname>Castro</lname>
+	<email>jeancastro@cct.ie</email>
+	<phone>0838710614</phone>
+	</reader>
+	
+
+	<reader>
+	<id>02</id>
+	<fname>Carlos</fname>
+	<lname>Augusto</lname>
+	<email>carlos@cct.ie</email>
+	<phone>0834235354</phone>
+	</reader>
+	
+
+	<reader>
+	<id>03</id>
+	<fname>Vitor</fname>
+	<lname>Lopes</lname>
+	<email>vitor@cct.ie</email>
+	<phone>083435665</phone>
+	</reader>
+	
+
+	<reader>
+	<id>04</id>
+	<fname>Igor</fname>
+	<lname>Moreira</lname>
+	<email>igor@cct.ie</email>
+	<phone>083065465</phone>
+	</reader>
+	
+</readers>
