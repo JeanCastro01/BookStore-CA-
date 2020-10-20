@@ -4,37 +4,33 @@
 
 <readers>
 
-	<reader>
-	<id>01</id>
-	<fname>Jean </fname>
-	<lname>Castro</lname>
+	<reader id="1">
+	<firstname>Jean </firstname>
+	<lastname>Castro</lastname>
 	<email>jeancastro@cct.ie</email>
 	<phone>0838710614</phone>
 	</reader>
 	
 
-	<reader>
-	<id>02</id>
-	<fname>Carlos</fname>
-	<lname>Augusto</lname>
+	<reader id="2">
+	<firstname>Carlos</firstname>
+	<lastname>Augusto</lastname>
 	<email>carlos@cct.ie</email>
 	<phone>0834235354</phone>
 	</reader>
 	
 
-	<reader>
-	<id>03</id>
-	<fname>Vitor</fname>
-	<lname>Lopes</lname>
+	<reader id="3">
+	<firstname>Vitor</firstname>
+	<lastname>Lopes</lastname>
 	<email>vitor@cct.ie</email>
 	<phone>083435665</phone>
 	</reader>
 	
 
-	<reader>
-	<id>04</id>
-	<fname>Igor</fname>
-	<lname>Moreira</lname>
+	<reader id="4">
+	<firstname>Igor</firstname>
+	<lastname>Moreira</lastname>
 	<email>igor@cct.ie</email>
 	<phone>083065465</phone>
 	</reader>

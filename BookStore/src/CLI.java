@@ -13,7 +13,8 @@ public class CLI {
    public CLI()  {
 	   
 	   
-
+            Database db = new Database();
+            db.readingReaders();
 	        menuoption();
 	        
 	         
