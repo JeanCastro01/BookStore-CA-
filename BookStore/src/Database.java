@@ -74,6 +74,7 @@ public class Database {
 						myReaders.add(reader);
 						
 						
+						
 					}
 				}
 				
@@ -164,27 +165,7 @@ public class Database {
 		
 		
 
-        public  Books searchbytitle(String title) {
-        	
-        	
-        	 
-        	 Books searchedBook = null;
-        	
-            // Going one by one the elements in the array
-            for(int i = 0; i < myBooks.size(); i++){
-               
-                // When the element is found, stop the loop and return the index
-                if(myBooks.get(i).getTitle().equals(title)){
-                	searchedBook = new Books (myBooks.get(i).getID(), myBooks.get(i).getAuthor(),myBooks.get(i).getTitle(), myBooks.get(i).getGenre());
-                	return searchedBook;
-                	
-                    
-                }                
-           
-        }
-			return null;
-   
-        }
+
         public  Books searchbyAuthor(String Author) {
         	
         	
@@ -195,7 +176,7 @@ public class Database {
            for(int i = 0; i < myBooks.size(); i++){
               
                // When the element is found, stop the loop and return the index
-               if(myBooks.get(i).getAuthor().equals(Author)){
+               if(myBooks.get(i).getAuthor().equals(Author) || myBooks.get(i).getTitle().equals(Author)){
                	searchedBook = new Books (myBooks.get(i).getID(), myBooks.get(i).getAuthor(),myBooks.get(i).getTitle(), myBooks.get(i).getGenre());
                	return searchedBook;
                	
@@ -206,6 +187,30 @@ public class Database {
 			return null;
   
        }
+        
+        public  Readers searchbyname(String Name) {
+        	
+        	
+          	 
+          	 Readers searchedname = null;
+          	
+              // Going one by one the elements in the array
+              for(int i = 0; i < myReaders.size(); i++){
+                 
+                  // When the element is found, stop the loop and return the index
+                  if(myReaders.get(i).getFirstname().equals(Name) || myReaders.get(i).getID().equals(Name)){
+                  	searchedname = new Readers (myReaders.get(i).getID(), myReaders.get(i).getFirstname(),myReaders.get(i).getLastname(), myReaders.get(i).getEmail()
+                  			, myReaders.get(i).getPhone());
+                  	return searchedname;
+                  	
+                      
+                  }                
+             
+          }
+   			return null;
+     
+          }
+ 
 }
 
 

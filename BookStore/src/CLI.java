@@ -91,63 +91,32 @@ public class CLI {
 
 		  System.out.println("Search Session");
 		  System.out.println("________________");
-		  System.out.println("Press 1 - Search Book by Title");
-		  System.out.println("Press 2 - Search Book by Author");
-		  System.out.println("Press 3 - Search Reader by Name");
-		  System.out.println("Press 4 - Search Reader by ID");
-		  System.out.println("Press 5 - Search Books Borrowed by the Reader");
-		  System.out.println("Press 6 - Return To The Main Menu");
+		  System.out.println("Press 1 - Search Book by Title/Author");
+		  System.out.println("Press 2 - Search Reader by Name/ID");
+		  System.out.println("Press 3 - Search Books Borrowed by the Reader");
+		  System.out.println("Press 4 - Return To The Main Menu");
 		  
 		  
 		  int option = readinguser();
 		  
 		  
 		  if (option ==1) {  
-			  System.out.println("Please Enter Book Title");
-			  try {
-			  Scanner myScanner = new Scanner(System.in);
-			  String title = myScanner.nextLine();
-			  
-			  myScanner.close();
-			
-			  if(db.searchbytitle(title) == null) {
-				  System.out.println("Sorry, title " + title + " not found!");
-			  }
-			  
-			  else {
-				  System.out.println("------------------------------------------");
-				  System.out.println("ID: " + db.searchbytitle(title).getID());
-				  System.out.println("Title: " + db.searchbytitle(title).getTitle());
-				  System.out.println("Author: " + db.searchbytitle(title).getAuthor());
-				 
-			  }
-			
-				 
-		  
-		  } catch (Exception e ) {
-			  System.out.println("Invalid input");
-			  
-			  
-		  }
-		  }
-		  
-		  else if (option ==2) {
-			  System.out.println("Please Enter Book Author");
+			  System.out.println("Please Enter Book Title or Author");
 			  try {
 				  Scanner myScanner = new Scanner(System.in);
 				  String Author = myScanner.nextLine();
 				  
 				  myScanner.close();
 				
-				  if(db.searchbytitle(Author) == null) {
+				  if(db.searchbyAuthor(Author) == null) {
 					  System.out.println("Sorry, title " + Author + " not found!");
 				  }
 				  
 				  else {
 					  System.out.println("------------------------------------------");
-					  System.out.println("ID: " + db.searchbytitle(Author).getID());
-					  System.out.println("Title: " + db.searchbytitle(Author).getTitle());
-					  System.out.println("Author: " + db.searchbytitle(Author).getAuthor());
+					  System.out.println("ID: " + db.searchbyAuthor(Author).getID());
+					  System.out.println("Title: " + db.searchbyAuthor(Author).getTitle());
+					  System.out.println("Author: " + db.searchbyAuthor(Author).getAuthor());
 					 
 				  }
 				
@@ -159,20 +128,45 @@ public class CLI {
 				  
 			  }
 			  }
+		  
+		  else if (option ==2) {
+			  System.out.println("Please Enter Reader Name or ID");
+			  
+			  try {
+				  Scanner myScanner = new Scanner(System.in);
+				  String Name = myScanner.nextLine();
+				  
+				  myScanner.close();
+				
+				  if(db.searchbyname(Name) == null) {
+					  System.out.println("Sorry, Reader " + Name + " not found!");
+				  }
+				  
+				  else {
+					  System.out.println("------------------------------------------");
+					  System.out.println("ID: " + db.searchbyname(Name).getID());
+					  System.out.println("First Name: " + db.searchbyname(Name).getFirstname());
+					  System.out.println("Last Name: " + db.searchbyname(Name).getLastname());
+					  System.out.println("Email: " + db.searchbyname(Name).getEmail());
+					  System.out.println("Phone: " + db.searchbyname(Name).getPhone());
+				  }
+				
+					 
+			  
+			  } catch (Exception e ) {
+				  System.out.println("Invalid input");
+				  
+				  
+			  }
+			  }
+			
+	
 		  else if (option == 3) {
-			 
-			  System.out.println(" Please enter Reader Name ");
-		  }
-		  else if (option == 4) {
-				 
-			  System.out.println(" Please enter Reader ID");
-		  }
-		  else if (option == 5) {
 				 
 			  System.out.println(" Please enter Book Borrowed Name ");
 		  }
 		  
-		  else if (option ==6) {
+		  else if (option ==4) {
 			  
 			  menuoption();
 		  }
