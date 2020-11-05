@@ -64,6 +64,14 @@ public class Books {
 			return 0;
 		}
 		
+		 public String toString(){//overriding the toString() method  
+			  return this.Title;
+			 }  {
+			
+			
+			
+			
+		}
 	
 	
 

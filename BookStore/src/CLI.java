@@ -195,7 +195,8 @@ public class CLI {
 		  
 		  if (option ==1) {  
 			  System.out.println("All Books in Alphabetical Order Below");
-			  db.alphabeticalorder();
+			 db.alphabeticalorder();  
+			
 			  
 		  }
 		  

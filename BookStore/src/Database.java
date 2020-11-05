@@ -157,14 +157,29 @@ public class Database {
 
 				
 		
-		public  void alphabeticalorder() {
+		public void alphabeticalorder() {
 			
-	
 			
+			 for(int i=0;i < myBooks.size();i++){
+
+			        for(int j=0; j < myBooks.size() - 1; j++)
+
+			     if(String.valueOf(myBooks.get(j).getTitle()).compareTo(myBooks.get(j+1).getTitle())>0){
+
+			            Books temp = myBooks.get(j);
+			            myBooks.set(j, myBooks.get(j + 1));
+			            myBooks.set(j + 1,temp );   
+
+			     }
+			        
+			    }
+			 
+			 for (int i = 0; i < myBooks.size(); i++) {
+			        
+			        System.out.println("\n"+ myBooks.get(i).getTitle());
+			        }
 		}
 		
-		
-
 
         public  Books searchbyAuthor(String Author) {
         	
