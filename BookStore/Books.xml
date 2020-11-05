@@ -1,1 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+<books>
+
+	<book id="1">
+	<Title> Clean Code </Title>
+	<Author>Robert C. Martin</Author>
+	<Genre>Programming Books</Genre>
+	</book>
+	
+	<book id="2">
+	<Title>Harry Potter</Title>
+	<Author>J. K. Rowling</Author>
+	<Genre>Fantasy</Genre>
+	</book>
+	
+	<book id="3">
+	<Title>The Lord of the Rings</Title>
+	<Author>J. R. R. Tolkien</Author>
+	<Genre>Fantasy</Genre>
+	</book>
+	
+	<book id="4">
+	<Title>Boogie Bear</Title>
+	<Author>David Walliams</Author>
+	<Genre>Commedy</Genre>
+	</book>
+	
+	
+	
+	
+	</books>
