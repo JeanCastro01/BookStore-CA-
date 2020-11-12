@@ -102,32 +102,70 @@ public class CLI {
 		  
 		  if (option ==1) {  
 			  System.out.println("Please Enter Book Title or Author");
-			  try {
+		
 				  Scanner myScanner = new Scanner(System.in);
 				  String Author = myScanner.nextLine();
 				  
-				  myScanner.close();
+				  String choice;
+				  
+				  
+				 
 				
 				  if(db.searchbyAuthor(Author) == null) {
-					  System.out.println("Sorry, title " + Author + " not found!");
+					  System.out.println(Author + " does not exist" );
+					  searchmenu();
+					  
 				  }
+				  else if(db.searchbyAuthor(Author).isBorrowed() == true) {
+					  do {
+					  System.out.println("Sorry, title " + Author + " not Available");
+					  System.out.println("Would you like to be added in the waiting list? ");
+					  System.out.println("1 - Yes ");
+					  System.out.println("2 - NO");
+					  
+					  choice = myScanner.nextLine();
+					  } while(!choice.matches("[1-2]+")); 
+					  
+					  
+					  if ( choice.equals("1")){
+						  
+						  System.out.println("Please enter the Reader ID or Name");
+						  String userinput = myScanner.nextLine();
+						  
+						      if( db.searchbyname(userinput) == null) {
+							  System.out.println(userinput + " does not exist" );
+							  searchmenu();
+						      }
+							  
+						 
+						  db.waitingList(db.searchbyname(userinput),db.searchbyAuthor(Author));
+						  db.searchbyname(userinput).getFirstname();
+						  
+						  
+					  }
+					  
+					  if (choice.equals("2")) {
+						  
+						  menuoption();
+					  }
+					  
+			  
+					  }
+				  
 				  
 				  else {
 					  System.out.println("------------------------------------------");
 					  System.out.println("ID: " + db.searchbyAuthor(Author).getID());
 					  System.out.println("Title: " + db.searchbyAuthor(Author).getTitle());
 					  System.out.println("Author: " + db.searchbyAuthor(Author).getAuthor());
-					 
+					 // System.out.println("Available: " + db.searchbyAuthor(Author).isBorrowed());
 				  }
 				
-					 
+				  myScanner.close();
 			  
-			  } catch (Exception e ) {
-				  System.out.println("Invalid input");
-				  
-				  
-			  }
-			  }
+		
+			  
+		  }
 		  
 		  else if (option ==2) {
 			  System.out.println("Please Enter Reader Name or ID");

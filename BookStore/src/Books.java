@@ -8,14 +8,26 @@ public class Books {
 		private String Author;
 		private String Title;
 		private String Genre;
+		private boolean Borrowed;
 		
 		
-		public Books(String iD, String author, String title, String genre) {
+		public Books(String iD, String author, String title, String genre, boolean borrowed) {
 	
 			ID = iD;
 			Author = author;
 			Title = title;
 			Genre = genre;
+			Borrowed = borrowed;
+		}
+
+
+		public boolean isBorrowed() {
+			return Borrowed;
+		}
+
+
+		public void setBorrowed(boolean borrowed) {
+			Borrowed = borrowed;
 		}
 
 
