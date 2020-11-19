@@ -1,22 +1,46 @@
+import java.beans.XMLEncoder;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class Database {
 
 	Readers reader = new Readers();
 	Books book = new Books();
+	Borrowed borrowed;
 
 	ArrayList<Readers> myReaders = new ArrayList<Readers>();
 	ArrayList<Books> myBooks = new ArrayList<Books>();
+	ArrayList<Borrowed> myBorrowed= new ArrayList<Borrowed>();
 
 	public Database() {
 
+	}
+	
+	public void myBorrowedBooks(Books outterBook, Readers outterReader, String daterented, String datereturn) {
+		
+		
+		
+		borrowed = new Borrowed(outterBook, outterReader, daterented, datereturn );
+		myBorrowed.add(borrowed); 
+		
+		//TODO CALL METHOD TO WRITE IN THE BORROWED.XML FILE
+		
+
+		
 	}
 
 	public void readingReaders() {
@@ -115,6 +139,8 @@ public class Database {
 
 					Books book = new Books(id, author, title, genre, borrowed);
 					myBooks.add(book);
+					
+					
 
 				}
 			}
@@ -125,7 +151,7 @@ public class Database {
 
 	}
 
-	public void alphabeticalorder() {
+	public void alphabeticalorderBooks() {
 
 		for (int i = 0; i < myBooks.size(); i++) {
 
@@ -146,6 +172,103 @@ public class Database {
 			System.out.println("\n" + myBooks.get(i).getTitle());
 		}
 	}
+	
+
+	
+	public void IDorderBooks() {
+
+		for (int i = 0; i < myBooks.size(); i++) {
+
+			for (int j = 0; j < myBooks.size() - 1; j++)
+
+				if (String.valueOf(myBooks.get(j).getID()).compareTo(myBooks.get(j + 1).getID()) > 0) {
+
+					Books temp = myBooks.get(j);
+					myBooks.set(j, myBooks.get(j + 1));
+					myBooks.set(j + 1, temp);
+
+				}
+
+		}
+
+		for (int i = 0; i < myBooks.size(); i++) {
+
+			System.out.println("\n" + myBooks.get(i).getID());
+		}
+	}
+	
+	public void alphabeticalorderReader() {
+
+		for (int i = 0; i < myReaders.size(); i++) {
+
+			for (int j = 0; j < myReaders.size() - 1; j++)
+
+				if (String.valueOf(myReaders.get(j).getFirstname()).compareTo(myReaders.get(j + 1).getFirstname()) > 0) {
+
+					Readers temp = myReaders.get(j);
+					myReaders.set(j, myReaders.get(j + 1));
+					myReaders.set(j + 1, temp);
+
+				}
+
+		}
+
+		for (int i = 0; i < myReaders.size(); i++) {
+
+			System.out.println("\n" + myReaders.get(i).getFirstname());
+		}
+	}
+	
+	
+	public void setTrue(Books books) throws ParserConfigurationException {
+		
+		for (int i = 0; i < myBooks.size(); i++) {
+
+			// When the element is found, stop the loop and return the index
+			if (myBooks.get(i).getAuthor().equalsIgnoreCase(books.getAuthor()) || myBooks.get(i).getTitle().equalsIgnoreCase(books.getTitle()))
+			{
+				 
+              myBooks.get(i).setBorrowed(true);
+              
+              
+             
+				setBorrowed();
+		
+			
+	
+			}
+		}
+	
+	}
+	
+	public void setBorrowed()  {
+		
+		
+	}
+		
+
+	public void IDorderReaders() {
+
+		for (int i = 0; i < myReaders.size(); i++) {
+
+			for (int j = 0; j < myReaders.size() - 1; j++)
+
+				if (String.valueOf(myReaders.get(j).getID()).compareTo(myReaders.get(j + 1).getID()) > 0) {
+
+					Readers temp = myReaders.get(j);
+					myReaders.set(j, myReaders.get(j + 1));
+					myReaders.set(j + 1, temp);
+
+				}
+
+		}
+
+		for (int i = 0; i < myReaders.size(); i++) {
+
+			System.out.println("\n" + myReaders.get(i).getID());
+		}
+	}
+
 
 	public Books searchbyAuthor(String Author) {
 
@@ -154,8 +277,9 @@ public class Database {
 		// Going one by one the elements in the array
 		for (int i = 0; i < myBooks.size(); i++) {
 
-			// When the element is found, stop the loop and return the index
-			if (myBooks.get(i).getAuthor().equals(Author) || myBooks.get(i).getTitle().equals(Author)) {
+			// When the element is found, stop the loop and
+			
+			if (myBooks.get(i).getAuthor().equalsIgnoreCase(Author) || myBooks.get(i).getTitle().equalsIgnoreCase(Author)) {
 				searchedBook = new Books(myBooks.get(i).getID(), myBooks.get(i).getAuthor(), myBooks.get(i).getTitle(),
 						myBooks.get(i).getGenre(), myBooks.get(i).isBorrowed());
 
@@ -168,7 +292,7 @@ public class Database {
 
 	}
 
-	public Readers searchbyname(String Name) {
+	public Readers searchbyname(String Name ) {
 
 		Readers searchedname = null;
 
@@ -193,5 +317,8 @@ public class Database {
 		
 		
 	}
+
+	
+	
 
 }
