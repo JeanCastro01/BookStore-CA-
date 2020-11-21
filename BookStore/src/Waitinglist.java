@@ -1,7 +1,5 @@
 
 public class Waitinglist {
-	
-
 
 	Books mybook;
 	Readers myreader;

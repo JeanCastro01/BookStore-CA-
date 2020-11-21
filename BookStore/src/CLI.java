@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 public class CLI {
 
@@ -51,7 +52,15 @@ public class CLI {
 		int option = readinguser();
 
 		if (option == 1) {
-			searchmenu();
+			try {
+				searchmenu();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 
@@ -76,7 +85,7 @@ public class CLI {
 
 	}
 
-	public void searchmenu() {
+	public void searchmenu() throws TransformerException, ParserConfigurationException {
 
 		System.out.println("Search Session");
 		System.out.println("________________");
@@ -162,6 +171,8 @@ public class CLI {
 					String reader = myScanner.nextLine();
 					
 					
+					
+					
 					//call method that inserts (Book, Reader) into borrowed array
 					db.myBorrowedBooks(db.searchbyAuthor(Author), db.searchbyname(reader), isToday, "");
 
@@ -176,6 +187,13 @@ public class CLI {
 					System.out.println("This Book was bowrred to: " + reader);
 					System.out.println("_____________");
 					
+					
+					try {
+						db.setBorrowed();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 					menuoption();
 					

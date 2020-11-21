@@ -1,20 +1,23 @@
-import java.beans.XMLEncoder;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import org.w3c.dom.Text;
 
 public class Database {
 
@@ -24,23 +27,93 @@ public class Database {
 
 	ArrayList<Readers> myReaders = new ArrayList<Readers>();
 	ArrayList<Books> myBooks = new ArrayList<Books>();
-	ArrayList<Borrowed> myBorrowed= new ArrayList<Borrowed>();
+	ArrayList<Borrowed> myBorrowed = new ArrayList<Borrowed>();
 
 	public Database() {
 
 	}
-	
-	public void myBorrowedBooks(Books outterBook, Readers outterReader, String daterented, String datereturn) {
-		
-		
-		
-		borrowed = new Borrowed(outterBook, outterReader, daterented, datereturn );
-		myBorrowed.add(borrowed); 
-		
-		//TODO CALL METHOD TO WRITE IN THE BORROWED.XML FILE
-		
+
+	public void myBorrowedBooks(Books outterBook, Readers outterReader, String daterented, String datereturn)
+			throws TransformerException, ParserConfigurationException {
+
+		borrowed = new Borrowed(outterBook, outterReader, daterented, datereturn);
+		myBorrowed.add(borrowed);
+
+		// TODO CALL METHOD TO WRITE IN THE BORROWED.XML FILE
 
 		
+
+	}
+
+	public void creatingBorrowedXML() throws TransformerException, ParserConfigurationException {
+
+
+		
+		
+		
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+		Document xmldoc = docBuilder.newDocument();
+
+		// <borroweds>
+
+		// <book id="1">
+		// <readers>
+		// <reader id="">
+		// <daterented></daterented>
+		// <datereturned></datereturned>
+		// </reader>
+		// </readers>
+		// </book>
+
+		// </borroweds>
+
+		Element rootElement = xmldoc.createElement("borroweds");
+
+		for (int i = 0; i < myBorrowed.size(); i++) {
+
+			Element mainElement = xmldoc.createElement("book");
+			mainElement.setAttribute("Id", myBorrowed.get(i).mybook.getID());
+
+			Element mainElement2 = xmldoc.createElement("reader");
+			mainElement.setAttribute("Id", myBorrowed.get(i).myreader.getID());
+
+			Text bookNameText1 = xmldoc.createTextNode(myBorrowed.get(i).getDaterented());
+			Element booktnameText1 = xmldoc.createElement("daterented");
+			booktnameText1.appendChild(bookNameText1);
+			mainElement.appendChild(booktnameText1);
+
+			Text bookNameText2 = xmldoc.createTextNode(myBorrowed.get(i).getDatetreturn());
+			Element booktnameText2 = xmldoc.createElement("datereturned");
+			booktnameText2.appendChild(bookNameText2);
+			mainElement.appendChild(booktnameText2);
+
+			
+
+			rootElement.appendChild(mainElement);
+			rootElement.appendChild(mainElement2);
+
+			xmldoc.appendChild(rootElement);
+
+			DOMSource source = new DOMSource(xmldoc);
+
+			String path = "Borrowed.xml";
+
+			File f = new File(path);
+
+			Result result = new StreamResult(f);
+
+			TransformerFactory transformerfactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerfactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.transform(source, result);
+
+			System.out.println("Write data sucess to file:" + path);
+
+		}
+
 	}
 
 	public void readingReaders() {
@@ -139,8 +212,6 @@ public class Database {
 
 					Books book = new Books(id, author, title, genre, borrowed);
 					myBooks.add(book);
-					
-					
 
 				}
 			}
@@ -172,9 +243,7 @@ public class Database {
 			System.out.println("\n" + myBooks.get(i).getTitle());
 		}
 	}
-	
 
-	
 	public void IDorderBooks() {
 
 		for (int i = 0; i < myBooks.size(); i++) {
@@ -196,14 +265,15 @@ public class Database {
 			System.out.println("\n" + myBooks.get(i).getID());
 		}
 	}
-	
+
 	public void alphabeticalorderReader() {
 
 		for (int i = 0; i < myReaders.size(); i++) {
 
 			for (int j = 0; j < myReaders.size() - 1; j++)
 
-				if (String.valueOf(myReaders.get(j).getFirstname()).compareTo(myReaders.get(j + 1).getFirstname()) > 0) {
+				if (String.valueOf(myReaders.get(j).getFirstname())
+						.compareTo(myReaders.get(j + 1).getFirstname()) > 0) {
 
 					Readers temp = myReaders.get(j);
 					myReaders.set(j, myReaders.get(j + 1));
@@ -218,34 +288,97 @@ public class Database {
 			System.out.println("\n" + myReaders.get(i).getFirstname());
 		}
 	}
-	
-	
+
 	public void setTrue(Books books) throws ParserConfigurationException {
-		
+
 		for (int i = 0; i < myBooks.size(); i++) {
 
 			// When the element is found, stop the loop and return the index
-			if (myBooks.get(i).getAuthor().equalsIgnoreCase(books.getAuthor()) || myBooks.get(i).getTitle().equalsIgnoreCase(books.getTitle()))
-			{
-				 
-              myBooks.get(i).setBorrowed(true);
-              
-              
-             
-				setBorrowed();
-		
-			
-	
+			if (myBooks.get(i).getAuthor().equalsIgnoreCase(books.getAuthor())
+					|| myBooks.get(i).getTitle().equalsIgnoreCase(books.getTitle())) {
+
+				myBooks.get(i).setBorrowed(true);
+
 			}
 		}
-	
+
 	}
+
+	public void setBorrowed() throws ParserConfigurationException, FileNotFoundException, IOException, TransformerException {
+
+		
 	
-	public void setBorrowed()  {
 		
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+		Document xmldoc = docBuilder.newDocument();
+
+		// <books>
+		// <book>
+		// <Title></Title>
+		// <Author></Author>
+		// <Genre></Genre>
+		// <Borrowed></Borrowed>
+		// <book>
+		// </books>
+
+		Element rootElement = xmldoc.createElement("books");
+
+		for (int i = 0; i < myBooks.size(); i++) {
+
+			//Text  bookIDAttribute = xmldoc.createTextNode(myBooks.get(i).getID());
+			Element mainElement = xmldoc.createElement("book");
+			mainElement.setAttribute("Id", myBooks.get(i).getID());
+			
+			Element booktnameText1 = xmldoc.createElement("Title");
+			Text bookNameText1 = xmldoc.createTextNode(myBooks.get(i).getTitle());
+			booktnameText1.appendChild(bookNameText1);
+			mainElement.appendChild(booktnameText1);
+			
+
+			Text bookNameText2 = xmldoc.createTextNode(myBooks.get(i).getAuthor());
+			Element booktnameText2 = xmldoc.createElement("Author");
+			booktnameText2.appendChild(bookNameText2);
+			mainElement.appendChild(booktnameText2);
+			
+
+			Text bookNameText3 = xmldoc.createTextNode(myBooks.get(i).getGenre());
+			Element booktnameText3 = xmldoc.createElement("Genre");
+			booktnameText3.appendChild(bookNameText3);
+			mainElement.appendChild(booktnameText3);
 		
+
+			Text bookNameText4 = xmldoc.createTextNode(String.valueOf(myBooks.get(i).isBorrowed()));
+			Element booktnameText4 = xmldoc.createElement("Borrowed");
+			booktnameText4.appendChild(bookNameText4);
+			mainElement.appendChild(booktnameText4);
+			
+			rootElement.appendChild(mainElement);
+
+
+			xmldoc.appendChild(rootElement);
+
+			DOMSource source = new DOMSource(xmldoc);
+
+			String path2 = "Books.xml";
+			File f2 = new File(path2);
+
+			Result result = new StreamResult(f2);
+
+			TransformerFactory transformerfactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerfactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.transform(source, result);
+
+			System.out.println("Write data sucess to file:" + path2);
+
+		}
+		
+		creatingBorrowedXML();
+
 	}
-		
 
 	public void IDorderReaders() {
 
@@ -269,7 +402,6 @@ public class Database {
 		}
 	}
 
-
 	public Books searchbyAuthor(String Author) {
 
 		Books searchedBook = null;
@@ -278,8 +410,9 @@ public class Database {
 		for (int i = 0; i < myBooks.size(); i++) {
 
 			// When the element is found, stop the loop and
-			
-			if (myBooks.get(i).getAuthor().equalsIgnoreCase(Author) || myBooks.get(i).getTitle().equalsIgnoreCase(Author)) {
+
+			if (myBooks.get(i).getAuthor().equalsIgnoreCase(Author)
+					|| myBooks.get(i).getTitle().equalsIgnoreCase(Author)) {
 				searchedBook = new Books(myBooks.get(i).getID(), myBooks.get(i).getAuthor(), myBooks.get(i).getTitle(),
 						myBooks.get(i).getGenre(), myBooks.get(i).isBorrowed());
 
@@ -292,7 +425,7 @@ public class Database {
 
 	}
 
-	public Readers searchbyname(String Name ) {
+	public Readers searchbyname(String Name) {
 
 		Readers searchedname = null;
 
@@ -313,12 +446,7 @@ public class Database {
 	}
 
 	public void waitingList(Readers searchbyname, Books searchbyAuthor) {
-		
-		
-		
-	}
 
-	
-	
+	}
 
 }

@@ -4,7 +4,7 @@
 
 <borroweds>
 
-	<book id="">
+	<book id="1">
 		<readers>
 			<reader id="">
 				<daterented></daterented>
@@ -12,29 +12,6 @@
 			</reader>
 		</readers>
 	</book>
-
-
-	<book id="2">
-
-		<readerID></readerID>
-		<daterented></daterented>
-		<datereturned></datereturned>
-	</book>
-
-	<book id="3">
-
-		<readerID></readerID>
-		<daterented></daterented>
-		<datereturned></datereturned>
-	</book>
-
-	<book id="4">
-
-		<readerID></readerID>
-		<daterented></daterented>
-		<datereturned></datereturned>
-	</book>
-
 
 
 
