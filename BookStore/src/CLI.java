@@ -129,7 +129,8 @@ public class CLI {
 						searchmenu();
 					}
 
-					db.waitingList(db.searchbyname(userinput), db.searchbyAuthor(Author));
+					db.waitingList(db.searchbyname(userinput), db.searchbyAuthor(
+));
 					db.searchbyname(userinput).getFirstname();
 
 				}
@@ -186,6 +187,8 @@ public class CLI {
 					
 					System.out.println("This Book was bowrred to: " + reader);
 					System.out.println("_____________");
+					
+				
 					
 					
 					try {

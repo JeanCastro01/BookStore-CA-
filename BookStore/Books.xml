@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <books>
-<book Id="">
+<book id="1">
 <Title>harry potter</Title>
 <Author>alice</Author>
 <Genre>fantasy</Genre>
+<Borrowed>False</Borrowed>
+</book>
+<book id="2">
+<Title>Cosmos</Title>
+<Author>alice</Author>
+<Genre>Horror</Genre>
 <Borrowed>true</Borrowed>
+</book>
+<book id="3">
+<Title>Fast Love</Title>
+<Author>alice cosmos</Author>
+<Genre>Comedy</Genre>
+<Borrowed>false</Borrowed>
+</book>
+<book id="4">
+<Title>Angels</Title>
+<Author>alice braga</Author>
+<Genre>fantasy</Genre>
+<Borrowed>false</Borrowed>
 </book>
 </books>

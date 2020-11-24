@@ -8,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -24,10 +25,14 @@ public class Database {
 	Readers reader = new Readers();
 	Books book = new Books();
 	Borrowed borrowed;
+	
+	
 
 	ArrayList<Readers> myReaders = new ArrayList<Readers>();
 	ArrayList<Books> myBooks = new ArrayList<Books>();
 	ArrayList<Borrowed> myBorrowed = new ArrayList<Borrowed>();
+	
+	
 
 	public Database() {
 
@@ -38,17 +43,17 @@ public class Database {
 
 		borrowed = new Borrowed(outterBook, outterReader, daterented, datereturn);
 		myBorrowed.add(borrowed);
+		
+		System.out.println(outterReader.getEmail());
 
-		// TODO CALL METHOD TO WRITE IN THE BORROWED.XML FILE
-
+	//	for(int i; i< myBorrowed.size(); i++) {
+	 //  System.out.println(myBorrowed.get(i).getMybook().getID());
+	//	}
 		
 
 	}
 
 	public void creatingBorrowedXML() throws TransformerException, ParserConfigurationException {
-
-
-		
 		
 		
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -59,50 +64,51 @@ public class Database {
 		// <borroweds>
 
 		// <book id="1">
-		// <readers>
 		// <reader id="">
 		// <daterented></daterented>
 		// <datereturned></datereturned>
 		// </reader>
-		// </readers>
 		// </book>
 
 		// </borroweds>
 
 		Element rootElement = xmldoc.createElement("borroweds");
+		xmldoc.appendChild(rootElement);
 
 		for (int i = 0; i < myBorrowed.size(); i++) {
 
 			Element mainElement = xmldoc.createElement("book");
-			mainElement.setAttribute("Id", myBorrowed.get(i).mybook.getID());
-
-			Element mainElement2 = xmldoc.createElement("reader");
-			mainElement.setAttribute("Id", myBorrowed.get(i).myreader.getID());
-
-			Text bookNameText1 = xmldoc.createTextNode(myBorrowed.get(i).getDaterented());
-			Element booktnameText1 = xmldoc.createElement("daterented");
-			booktnameText1.appendChild(bookNameText1);
-			mainElement.appendChild(booktnameText1);
-
-			Text bookNameText2 = xmldoc.createTextNode(myBorrowed.get(i).getDatetreturn());
-			Element booktnameText2 = xmldoc.createElement("datereturned");
-			booktnameText2.appendChild(bookNameText2);
-			mainElement.appendChild(booktnameText2);
-
+			mainElement.setAttribute("id", myBorrowed.get(i).getMybook().getID());
 			
 
+			
+			
+			Element mainElement2 = xmldoc.createElement("reader");
+			mainElement2.setAttribute("id", myBorrowed.get(i).getMyreader().getID());
+			
+		
+			Element booktnameText1 = xmldoc.createElement("daterented");
+			Text bookNameText1 = xmldoc.createTextNode(myBorrowed.get(i).getDaterented());
+			booktnameText1.appendChild(bookNameText1);
+			
+			Element booktnameText2 = xmldoc.createElement("datereturned");
+			Text bookNameText2 = xmldoc.createTextNode(myBorrowed.get(i).getDatetreturn());
+			booktnameText2.appendChild(bookNameText2);
+			
+			mainElement2.appendChild(booktnameText1);
+			mainElement2.appendChild(booktnameText2);
+			
+			mainElement.appendChild(mainElement2);
+			
 			rootElement.appendChild(mainElement);
-			rootElement.appendChild(mainElement2);
-
-			xmldoc.appendChild(rootElement);
+			
 
 			DOMSource source = new DOMSource(xmldoc);
 
-			String path = "Borrowed.xml";
+			String path2 = "Borrowed.xml";
+			File f2 = new File(path2);
 
-			File f = new File(path);
-
-			Result result = new StreamResult(f);
+			Result result = new StreamResult(f2);
 
 			TransformerFactory transformerfactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerfactory.newTransformer();
@@ -110,8 +116,10 @@ public class Database {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.transform(source, result);
 
-			System.out.println("Write data sucess to file:" + path);
+			System.out.println("Write data sucess to file:" + path2);
 
+		
+		
 		}
 
 	}
@@ -324,40 +332,42 @@ public class Database {
 		// </books>
 
 		Element rootElement = xmldoc.createElement("books");
+		xmldoc.appendChild(rootElement);
 
 		for (int i = 0; i < myBooks.size(); i++) {
+			
+	
+			
+			//Element rootElement = xmldoc.createElement("books");
 
 			//Text  bookIDAttribute = xmldoc.createTextNode(myBooks.get(i).getID());
 			Element mainElement = xmldoc.createElement("book");
-			mainElement.setAttribute("Id", myBooks.get(i).getID());
+			mainElement.setAttribute("id", myBooks.get(i).getID());
+			rootElement.appendChild(mainElement);
 			
 			Element booktnameText1 = xmldoc.createElement("Title");
 			Text bookNameText1 = xmldoc.createTextNode(myBooks.get(i).getTitle());
 			booktnameText1.appendChild(bookNameText1);
 			mainElement.appendChild(booktnameText1);
 			
-
-			Text bookNameText2 = xmldoc.createTextNode(myBooks.get(i).getAuthor());
 			Element booktnameText2 = xmldoc.createElement("Author");
+			Text bookNameText2 = xmldoc.createTextNode(myBooks.get(i).getAuthor());	
 			booktnameText2.appendChild(bookNameText2);
 			mainElement.appendChild(booktnameText2);
 			
 
-			Text bookNameText3 = xmldoc.createTextNode(myBooks.get(i).getGenre());
 			Element booktnameText3 = xmldoc.createElement("Genre");
+			Text bookNameText3 = xmldoc.createTextNode(myBooks.get(i).getGenre());
 			booktnameText3.appendChild(bookNameText3);
 			mainElement.appendChild(booktnameText3);
 		
-
-			Text bookNameText4 = xmldoc.createTextNode(String.valueOf(myBooks.get(i).isBorrowed()));
+   
 			Element booktnameText4 = xmldoc.createElement("Borrowed");
+			Text bookNameText4 = xmldoc.createTextNode(String.valueOf(myBooks.get(i).isBorrowed()));
 			booktnameText4.appendChild(bookNameText4);
 			mainElement.appendChild(booktnameText4);
 			
-			rootElement.appendChild(mainElement);
-
-
-			xmldoc.appendChild(rootElement);
+		
 
 			DOMSource source = new DOMSource(xmldoc);
 
@@ -433,7 +443,7 @@ public class Database {
 		for (int i = 0; i < myReaders.size(); i++) {
 
 			// When the element is found, stop the loop and return the index
-			if (myReaders.get(i).getFirstname().equals(Name) || myReaders.get(i).getID().equals(Name)) {
+			if (myReaders.get(i).getFirstname().equalsIgnoreCase(Name) || myReaders.get(i).getID().equalsIgnoreCase(Name)) {
 				searchedname = new Readers(myReaders.get(i).getID(), myReaders.get(i).getFirstname(),
 						myReaders.get(i).getLastname(), myReaders.get(i).getEmail(), myReaders.get(i).getPhone());
 				return searchedname;
@@ -445,8 +455,77 @@ public class Database {
 
 	}
 
-	public void waitingList(Readers searchbyname, Books searchbyAuthor) {
+	public void waitingList(Readers searchbyname, Books searchbyAuthor) throws TransformerException, ParserConfigurationException {
+		
+	
+		
+		
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+		Document xmldoc = docBuilder.newDocument();
+
+		  // <Queues>
+		   
+		  //  <book1 id="1">
+		  // <readerid></readerid>
+		  //</book1>
+		   
+		   
+		   // <book id="2">
+		   // <readerid></readerid>
+		   // </book>
+		   
+		   // <book id="3">
+		   // <readerid></readerid>
+		  //  </book>
+		   
+		   // <book id="4">
+		   // <readerid></readerid>
+		   // </book>
+		   
+
+		   //</Queues>
+
+		Element rootElement = xmldoc.createElement("Queues");
+		xmldoc.appendChild(rootElement);
+
+		for (int i = 0; i < myBooks.size(); i++) {
+
+			Element mainElement = xmldoc.createElement("book");
+			mainElement.setAttribute("id",myBooks.get(i).getID());
+				
+		
+			Element booktnameText1 = xmldoc.createElement("readerid");
+			Text bookNameText1 = xmldoc.createTextNode(String.valueOf(myBooks.get(i).myQueue.add(searchbyname)));
+			booktnameText1.appendChild(bookNameText1);
+	
+			
+			mainElement.appendChild(booktnameText1);
+		
+			rootElement.appendChild(mainElement);
+			
+
+			DOMSource source = new DOMSource(xmldoc);
+
+			String path2 = "Queue.xml";
+			File f2 = new File(path2);
+
+			Result result = new StreamResult(f2);
+
+			TransformerFactory transformerfactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerfactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.transform(source, result);
+
+			System.out.println("Write data sucess to file:" + path2);
+
+		
+		
+		}
 
 	}
+		
 
 }

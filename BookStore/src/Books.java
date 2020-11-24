@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Books {
 
@@ -9,6 +12,17 @@ public class Books {
 	private String Title;
 	private String Genre;
 	private boolean Borrowed;
+	
+	
+	Queue<Readers> myQueue = new LinkedList<Readers>();
+
+	public Queue<Readers> getMyQueue() {
+		return myQueue;
+	}
+
+	public void setMyQueue(Queue<Readers> myQueue) {
+		this.myQueue = myQueue;
+	}
 
 	public Books(String iD, String author, String title, String genre, boolean borrowed) {
 

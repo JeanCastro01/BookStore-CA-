@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-
-   <Queues>
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   </Queues>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Queues>
+<book id="1">
+<readerid>true</readerid>
+</book>
+<book id="2">
+<readerid>true</readerid>
+</book>
+<book id="3">
+<readerid>true</readerid>
+</book>
+<book id="4">
+<readerid>true</readerid>
+</book>
+</Queues>
