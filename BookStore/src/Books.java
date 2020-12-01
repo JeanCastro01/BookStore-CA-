@@ -4,6 +4,10 @@ import java.util.Queue;
 
 public class Books {
 
+	
+	MyLinkedList queue = new MyLinkedList();
+	
+	
 	public Books() {
 	}
 
@@ -14,18 +18,21 @@ public class Books {
 	private boolean Borrowed;
 	
 	
-	Queue<Readers> myQueue = new LinkedList<Readers>();
+	
+	
 
-	public Queue<Readers> getMyQueue() {
-		return myQueue;
+	public MyLinkedList getQueue() {
+		return queue;
 	}
 
-	public void setMyQueue(Queue<Readers> myQueue) {
-		this.myQueue = myQueue;
+	public void setQueue(MyLinkedList queue) {
+		this.queue = queue;
 	}
 
 	public Books(String iD, String author, String title, String genre, boolean borrowed) {
 
+		
+		
 		ID = iD;
 		Author = author;
 		Title = title;

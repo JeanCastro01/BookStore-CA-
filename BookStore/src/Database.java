@@ -176,7 +176,7 @@ public class Database {
 
 	}
 
-	public void redingbooks() {
+	public void readingbooks() {
 
 		try {
 
@@ -422,7 +422,7 @@ public class Database {
 			// When the element is found, stop the loop and
 
 			if (myBooks.get(i).getAuthor().equalsIgnoreCase(Author)
-					|| myBooks.get(i).getTitle().equalsIgnoreCase(Author)) {
+					|| myBooks.get(i).getTitle().equalsIgnoreCase(Author) || myBooks.get(i).getID().equalsIgnoreCase(Author)){
 				searchedBook = new Books(myBooks.get(i).getID(), myBooks.get(i).getAuthor(), myBooks.get(i).getTitle(),
 						myBooks.get(i).getGenre(), myBooks.get(i).isBorrowed());
 
@@ -454,10 +454,108 @@ public class Database {
 		return null;
 
 	}
+	
+	public void readingqueue() {
+		
+		/* 1 - get bookID and create book object
+		 * 2 - get readerID and create reader object
+		 * 3 - search in your array of books for that book
+		 * 4 - access the queue from that book
+		 * 5 - add the reader object to the queue*/
+
+		try {
+
+			File xmlDoc = new File("Queue.xml");
+
+			DocumentBuilderFactory dbFact = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dbBuild = dbFact.newDocumentBuilder();
+			Document doc = dbBuild.parse(xmlDoc);
+
+			// Read root element
+
+			System.out.println(doc.getDocumentElement().getNodeName());
+
+			// read array of students elements
+			// this array is called Nodelist
+
+			NodeList nList = doc.getElementsByTagName("book");
+
+			for (int i = 0; i < nList.getLength(); i++) {
+				Node nNode = nList.item(i);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+					String bookid;
+					String readerid;
+				
+
+					Element eElement = (Element) nNode;
+
+					bookid = eElement.getAttribute("id");
+
+					readerid = eElement.getElementsByTagName("readerid").item(0).getTextContent();
+
+					
+					
+					
+					Books book = searchbyAuthor(bookid);
+					
+					
+					Readers readers = searchbyname(readerid);
+				
+					
+					
+					
+					
+					for (int j = 0; j < myBooks.size(); j++) {
+						if (myBooks.get(j).getID().equals(book.getID())); 
+					//array books / get a book / get id from that specific book || book
+						
+						myBooks.get(j).getQueue().addLast(readers);
+					
+					
+
+				
+					
+			}
+
+				}}} catch (Exception e) {
+			
+		}
+
+	}
+
 
 	public void waitingList(Readers searchbyname, Books searchbyAuthor) throws TransformerException, ParserConfigurationException {
 		
 	
+		
+		/* 1 - find the book in your book array
+		 * 
+		 * 
+		 * 
+		 * 2 - get the book
+		 * 3 - access the book queue and add Reader*/
+		
+		for (int i = 0; i < myBooks.size(); i++) {
+			
+			if (myBooks.get(i).getID().equals(searchbyAuthor.getID())) {
+				
+				
+				myBooks.get(i).getQueue().addLast(searchbyname);	
+				
+				writingtoqueue();
+			}
+					
+			
+		}
+		
+		
+	}
+		
+	public void writingtoqueue () throws TransformerException, ParserConfigurationException {
+		
+		
 		
 		
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -486,46 +584,115 @@ public class Database {
 		   
 
 		   //</Queues>
+		
+		
+		
+		/* 1 -  loop on the myBooks
+		 * 2 - access book
+		 * 3 - acess queue
+		 * 4 - get the reader
+		 * 5 - get the information from the reader that you need*/
 
 		Element rootElement = xmldoc.createElement("Queues");
-		xmldoc.appendChild(rootElement);
-
+		
+		Element mainElement =  null;
+		Element booktnameText1 = null;
+		
+		try {
+			
+		
 		for (int i = 0; i < myBooks.size(); i++) {
 
-			Element mainElement = xmldoc.createElement("book");
+			mainElement= xmldoc.createElement("book");
 			mainElement.setAttribute("id",myBooks.get(i).getID());
+
+			//loop through queue to get reader id
+			for (int j = 0; j < myBooks.get(i).getQueue().size(); j++) {
 				
-		
-			Element booktnameText1 = xmldoc.createElement("readerid");
-			Text bookNameText1 = xmldoc.createTextNode(String.valueOf(myBooks.get(i).myQueue.add(searchbyname)));
+			booktnameText1= xmldoc.createElement("readerid");
+			Text bookNameText1 = xmldoc.createTextNode(myBooks.get(i).getQueue().findElementByPosition(j).getElement().getID());
+			
+				
 			booktnameText1.appendChild(bookNameText1);
-	
-			
 			mainElement.appendChild(booktnameText1);
-		
 			rootElement.appendChild(mainElement);
-			
+		
+			}}
 
-			DOMSource source = new DOMSource(xmldoc);
+		xmldoc.appendChild(rootElement);
+		
+		DOMSource source = new DOMSource(xmldoc);
 
-			String path2 = "Queue.xml";
-			File f2 = new File(path2);
+		String path2 = "Queue.xml";
+		File f2 = new File(path2);
 
-			Result result = new StreamResult(f2);
+		Result result = new StreamResult(f2);
 
-			TransformerFactory transformerfactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerfactory.newTransformer();
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.transform(source, result);
+		TransformerFactory transformerfactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerfactory.newTransformer();
+		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		transformer.transform(source, result);
 
-			System.out.println("Write data sucess to file:" + path2);
-
+		System.out.println("Write data sucess to file:" + path2);
 		
 		
+			} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Something went terribly wrong. you are screwed!");
+		 
 		}
 
 	}
+	
+	public void returnbook(String myReturnedBook, String ReturnedDate) {
 		
-
+		
+		
+		// get book id
+		// get returndate
+		// search book id
+		//
+		//search book in the array mybooks
+		//change information from book isBorrowed to false
+		//get into myBooksQueue
+		//search for reader in position 0
+		//if there is somebody get element.ID and print message on the screen
+		//call method that saves myBooks to file
+		//
+		//
+		//search book in the array myBorroweds
+		//insert dateReturned
+		//call method that saves myBorroweds to file
+		
+		
+		for (int i =0; i < myBooks.size(); i ++) {
+			
+			myBooks.get(i).getID().equals(myReturnedBook);
+			
+			myBooks.get(i).setBorrowed(false);
+			
+			if (myBooks.get(i).getQueue().findElementByPosition(i).getElement().getFirstname()== null); {
+				System.out.println("There is nobody in the queue");
+			}
+			
+			myBooks.get(i).getQueue().findElementByPosition(i).getElement().getFirstname();
+				System.out.println("There is nobody in the queue");
+			}
+			
+		}
+		
+		
+		//System.out.println(myReturnedBook);
+		//System.out.println(ReturnedDate);
+		
+		
+		
+		
+		
+	
 }
+
+
+		
+	

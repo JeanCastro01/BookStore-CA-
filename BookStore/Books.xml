@@ -4,7 +4,7 @@
 <Title>harry potter</Title>
 <Author>alice</Author>
 <Genre>fantasy</Genre>
-<Borrowed>False</Borrowed>
+<Borrowed>true</Borrowed>
 </book>
 <book id="2">
 <Title>Cosmos</Title>
@@ -16,7 +16,7 @@
 <Title>Fast Love</Title>
 <Author>alice cosmos</Author>
 <Genre>Comedy</Genre>
-<Borrowed>false</Borrowed>
+<Borrowed>true</Borrowed>
 </book>
 <book id="4">
 <Title>Angels</Title>

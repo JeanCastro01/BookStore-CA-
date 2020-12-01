@@ -5,7 +5,7 @@
 <readers>
 
 	<reader id="1">
-	<firstname>Jean </firstname>
+	<firstname>Jean</firstname>
 	<lastname>Castro</lastname>
 	<email>jeancastro@cct.ie</email>
 	<phone>0838710614</phone>
@@ -20,7 +20,7 @@
 	</reader>
 	
 
-	<reader id="3">
+	<reader id="10">
 	<firstname>Vitor</firstname>
 	<lastname>Lopes</lastname>
 	<email>vitor@cct.ie</email>

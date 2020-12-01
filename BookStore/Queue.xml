@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Queues>
 <book id="1">
-<readerid>true</readerid>
+<readerid>3</readerid>
+<readerid>1</readerid>
 </book>
 <book id="2">
-<readerid>true</readerid>
+<readerid>3</readerid>
 </book>
 <book id="3">
-<readerid>true</readerid>
+<readerid>3</readerid>
 </book>
 <book id="4">
-<readerid>true</readerid>
+<readerid>3</readerid>
 </book>
 </Queues>

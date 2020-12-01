@@ -16,7 +16,9 @@ public class CLI {
 	public CLI() {
 
 		db.readingReaders();
-		db.redingbooks();
+		db.readingbooks();
+		db.readingqueue();
+		
 
 		menuoption();
 
@@ -129,11 +131,12 @@ public class CLI {
 						searchmenu();
 					}
 
-					db.waitingList(db.searchbyname(userinput), db.searchbyAuthor(
-));
+					db.waitingList(db.searchbyname(userinput), db.searchbyAuthor(Author));
 					db.searchbyname(userinput).getFirstname();
 
 				}
+				
+			
 
 				if (choice.equals("2")) {
 
@@ -323,8 +326,11 @@ public class CLI {
 
 	public void returnbook() {
 
-	
-		System.out.println("________________");
+		System.out.println("Return Session");
+		System.out.println(" ");
+		System.out.println("1 - Return a Book");
+		System.out.println("2 - Return To The Main Menu");
+		
 		
 	
 
@@ -333,32 +339,55 @@ public class CLI {
 		if (option == 1) {
 
 		    
-		     System.out.println("________________");
-		     System.out.println("Please enter Book Name ");
-		     
-		     
-				
+		     Scanner myScan = new Scanner(System.in); 
 			
+			
+		     System.out.println("Please enter Book Name  ");
+		     
+		     
+		     String myReturnedBook = myScan.nextLine();
+		     
+		     
+		        
+		        
+		       
+		        
+		      
+		        
+		        Calendar today = Calendar.getInstance();
+				today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
+				Date todayDate = today.getTime();
+				
+				String isToday = todayDate.toString();
+		        
+		        
+		     db.returnbook(db.searchbyAuthor(myReturnedBook).getID(), isToday);
+		     
+		     
+		     
+		     
+		     
+			
+			
+			menuoption();
+			
+			myScan.close();	
 			
 
 		}
 
 		else if (option == 2) {
 
-			System.out.println("Please enter Book Name ");
-			// loop to ask again the reader name
-
-		}
-
-		else if (option == 3) {
-
 			menuoption();
+
 		}
+
+	
 
 		else {
 
 			System.out.println("Not a valid number");
-	
+			returnbook();
 
 		}
 
