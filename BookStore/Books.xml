@@ -4,19 +4,19 @@
 <Title>harry potter</Title>
 <Author>alice</Author>
 <Genre>fantasy</Genre>
-<Borrowed>true</Borrowed>
+<Borrowed>false</Borrowed>
 </book>
-<book id="2">
+<book id="6">
 <Title>Cosmos</Title>
 <Author>alice</Author>
 <Genre>Horror</Genre>
-<Borrowed>true</Borrowed>
+<Borrowed>false</Borrowed>
 </book>
-<book id="3">
+<book id="8">
 <Title>Fast Love</Title>
 <Author>alice cosmos</Author>
 <Genre>Comedy</Genre>
-<Borrowed>true</Borrowed>
+<Borrowed>false</Borrowed>
 </book>
 <book id="4">
 <Title>Angels</Title>

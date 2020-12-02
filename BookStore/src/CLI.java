@@ -1,5 +1,6 @@
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Calendar;
@@ -14,10 +15,19 @@ public class CLI {
 	Database db = new Database();
 
 	public CLI() {
+		
+		
+		System.out.println("--------- LOADED IN THE SYSTEM ---------");
+		System.out.println("");
 
 		db.readingReaders();
 		db.readingbooks();
 		db.readingqueue();
+		db.readingborrowed();
+		
+		System.out.println("");
+		System.out.println("-----------------------------------------");
+		System.out.println("");
 		
 
 		menuoption();
@@ -71,7 +81,12 @@ public class CLI {
 		}
 
 		else if (option == 3) {
-			returnbook();
+			try {
+				returnbook();
+			} catch (ParserConfigurationException | IOException | TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 
@@ -324,7 +339,7 @@ public class CLI {
 
 	}
 
-	public void returnbook() {
+	public void returnbook() throws FileNotFoundException, ParserConfigurationException, IOException, TransformerException {
 
 		System.out.println("Return Session");
 		System.out.println(" ");
@@ -348,21 +363,32 @@ public class CLI {
 		     String myReturnedBook = myScan.nextLine();
 		     
 		     
-		        
-		        
-		       
-		        
+
+				if (db.searchbyAuthor(myReturnedBook) == null) {
+					System.out.println(myReturnedBook + " does not exist");
+					returnbook();
+
+				} 
+				 else  {
+						
+						System.out.println(" ");
+						System.out.println("Checking queue.........");
+						System.out.println("Checking queue.........");
+						System.out.println("Checking queue.........");
+						System.out.println(" ");
+						
+						
+			             
+					}
 		      
-		        
-		        Calendar today = Calendar.getInstance();
-				today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
-				Date todayDate = today.getTime();
-				
-				String isToday = todayDate.toString();
-		        
-		        
-		     db.returnbook(db.searchbyAuthor(myReturnedBook).getID(), isToday);
-		     
+				 Calendar today = Calendar.getInstance();
+					today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
+					Date todayDate = today.getTime();
+					
+					String isToday = todayDate.toString();
+			        
+			        
+			     db.returnbook(db.searchbyAuthor(myReturnedBook).getID(), isToday);
 		     
 		     
 		     

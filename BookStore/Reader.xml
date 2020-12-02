@@ -12,7 +12,7 @@
 	</reader>
 	
 
-	<reader id="2">
+	<reader id="6">
 	<firstname>Carlos</firstname>
 	<lastname>Augusto</lastname>
 	<email>carlos@cct.ie</email>
@@ -20,7 +20,7 @@
 	</reader>
 	
 
-	<reader id="10">
+	<reader id="9">
 	<firstname>Vitor</firstname>
 	<lastname>Lopes</lastname>
 	<email>vitor@cct.ie</email>
