@@ -1,4 +1,11 @@
 
+
+/**
+ * 
+ * this is my main class, which extend the CLI(); class
+ * @author jeancastro
+ *
+ */
 public class Main {
 
 	public Main() {

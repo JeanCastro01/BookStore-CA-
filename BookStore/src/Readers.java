@@ -1,4 +1,13 @@
 
+
+/**
+ * 
+ * This class is for the Readers Object
+ * 
+ * 
+ * @author jeancastro
+ *
+ */
 public class Readers {
 
 	public Readers() {
@@ -9,6 +18,22 @@ public class Readers {
 	private String lastname;
 	private String email;
 	private String phone;
+	
+	
+	/**
+	 * Construsctor with attributes for the Readers
+	 * 
+	 * @param ID
+	 * This Reader's ID
+	 * @param firstname
+	 * This Reader's FirstName
+	 * @param lastname
+	 * This Readers LastName
+	 * @param email
+	 * This Readers Email
+	 * @param phone
+	 * This Readers phone number
+	 */
 
 	public Readers(String ID, String firstname, String lastname, String email, String phone) {
 

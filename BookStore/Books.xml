@@ -16,12 +16,12 @@
 <Title>Fast Love</Title>
 <Author>alice cosmos</Author>
 <Genre>Comedy</Genre>
-<Borrowed>false</Borrowed>
+<Borrowed>true</Borrowed>
 </book>
 <book id="4">
 <Title>Angels</Title>
 <Author>alice braga</Author>
 <Genre>fantasy</Genre>
-<Borrowed>false</Borrowed>
+<Borrowed>true</Borrowed>
 </book>
 </books>

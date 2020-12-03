@@ -1,5 +1,6 @@
 
 import java.io.BufferedReader;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,13 +11,27 @@ import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+/**
+ * 
+ * this is the command line class, responsible to interact with the user
+ * 
+ * @author jeancastro
+ *
+ */
 public class CLI {
 
 	Database db = new Database();
 
+	/**
+	 * readingReaders(); this extended from Database method is to load the Readers
+	 * in the arraylist readingbooks(); this extended from Database method is to
+	 * load the Books in the arraylist. readingqueue(); this extended from Database
+	 * method is to load the Queue in the arraylist. readingborrowed(); this
+	 * extended from Database method is to load the Queue in the arraylist.
+	 */
+
 	public CLI() {
-		
-		
+
 		System.out.println("--------- LOADED IN THE SYSTEM ---------");
 		System.out.println("");
 
@@ -24,15 +39,20 @@ public class CLI {
 		db.readingbooks();
 		db.readingqueue();
 		db.readingborrowed();
-		
+
 		System.out.println("");
 		System.out.println("-----------------------------------------");
 		System.out.println("");
-		
 
 		menuoption();
 
 	}
+
+	/**
+	 * this method return the user input and validation
+	 * 
+	 * @return user option
+	 */
 
 	public int readinguser() {
 
@@ -53,6 +73,9 @@ public class CLI {
 		return option;
 	}
 
+	/**
+	 * this method display the main menu with some options
+	 */
 	public void menuoption() {
 
 		System.out.println("Welcome to the Library Shop!! What would you like to do?");
@@ -102,6 +125,14 @@ public class CLI {
 
 	}
 
+	/**
+	 * this method is the search menu, will be displayed after user entered the
+	 * choice from the method mainmenu();
+	 * 
+	 * @throws TransformerException
+	 * @throws ParserConfigurationException
+	 */
+
 	public void searchmenu() throws TransformerException, ParserConfigurationException {
 
 		System.out.println("Search Session");
@@ -148,10 +179,11 @@ public class CLI {
 
 					db.waitingList(db.searchbyname(userinput), db.searchbyAuthor(Author));
 					db.searchbyname(userinput).getFirstname();
-
+					 
+					
 				}
+				 
 				
-			
 
 				if (choice.equals("2")) {
 
@@ -171,28 +203,25 @@ public class CLI {
 				System.out.println("Would you like to borrow the book: " + db.searchbyAuthor(Author).getTitle() + "?");
 				System.out.println("Press 1 - Yes");
 				System.out.println("Press 2 - No");
-				
+
 				String borrowOption = myScanner.nextLine();
 				if (borrowOption.equals("1")) {
 
-				 //TODO create method to insert book to the user in the array list
-						
+					// TODO create method to insert book to the user in the array list
+
 					System.out.println("Please enter the Registered Reader Name!");
-					
+
 					Calendar today = Calendar.getInstance();
-					today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
+					today.clear(Calendar.HOUR);
+					today.clear(Calendar.MINUTE);
+					today.clear(Calendar.SECOND);
 					Date todayDate = today.getTime();
-					
+
 					String isToday = todayDate.toString();
-					
-					
-					
+
 					String reader = myScanner.nextLine();
-					
-					
-					
-					
-					//call method that inserts (Book, Reader) into borrowed array
+
+					// call method that inserts (Book, Reader) into borrowed array
 					db.myBorrowedBooks(db.searchbyAuthor(Author), db.searchbyname(reader), isToday, "");
 
 					try {
@@ -201,30 +230,24 @@ public class CLI {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
-					
+
 					System.out.println("This Book was bowrred to: " + reader);
 					System.out.println("_____________");
-					
-				
-					
-					
+
 					try {
 						db.setBorrowed();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
+
 					menuoption();
-					
-				}
-				else {
+
+				} else {
 					menuoption();
 				}
-				
-				
-				//borrowedreturn();
+
+				// borrowedreturn();
 			}
 
 			myScanner.close();
@@ -277,6 +300,11 @@ public class CLI {
 		}
 
 	}
+
+	/**
+	 * this method is the book and readers option to display the books and reader in
+	 * the registered in the system
+	 */
 
 	public void booksreaders() {
 
@@ -339,66 +367,60 @@ public class CLI {
 
 	}
 
-	public void returnbook() throws FileNotFoundException, ParserConfigurationException, IOException, TransformerException {
+	/**
+	 * 
+	 * this method is for the returned book
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 * @throws TransformerException
+	 */
+	public void returnbook()
+			throws FileNotFoundException, ParserConfigurationException, IOException, TransformerException {
 
 		System.out.println("Return Session");
 		System.out.println(" ");
 		System.out.println("1 - Return a Book");
 		System.out.println("2 - Return To The Main Menu");
-		
-		
-	
 
 		int option = readinguser();
 
 		if (option == 1) {
 
-		    
-		     Scanner myScan = new Scanner(System.in); 
-			
-			
-		     System.out.println("Please enter Book Name  ");
-		     
-		     
-		     String myReturnedBook = myScan.nextLine();
-		     
-		     
+			Scanner myScan = new Scanner(System.in);
 
-				if (db.searchbyAuthor(myReturnedBook) == null) {
-					System.out.println(myReturnedBook + " does not exist");
-					returnbook();
+			System.out.println("Please enter Book Name  ");
 
-				} 
-				 else  {
-						
-						System.out.println(" ");
-						System.out.println("Checking queue.........");
-						System.out.println("Checking queue.........");
-						System.out.println("Checking queue.........");
-						System.out.println(" ");
-						
-						
-			             
-					}
-		      
-				 Calendar today = Calendar.getInstance();
-					today.clear(Calendar.HOUR); today.clear(Calendar.MINUTE); today.clear(Calendar.SECOND);
-					Date todayDate = today.getTime();
-					
-					String isToday = todayDate.toString();
-			        
-			        
-			     db.returnbook(db.searchbyAuthor(myReturnedBook).getID(), isToday);
-		     
-		     
-		     
-		     
-			
-			
+			String myReturnedBook = myScan.nextLine();
+
+			if (db.searchbyAuthor(myReturnedBook) == null) {
+				System.out.println(myReturnedBook + " does not exist");
+				returnbook();
+
+			} else {
+
+				System.out.println(" ");
+				System.out.println("Checking queue.........");
+				System.out.println("Checking queue.........");
+				System.out.println("Checking queue.........");
+				System.out.println(" ");
+
+			}
+
+			Calendar today = Calendar.getInstance();
+			today.clear(Calendar.HOUR);
+			today.clear(Calendar.MINUTE);
+			today.clear(Calendar.SECOND);
+			Date todayDate = today.getTime();
+
+			String isToday = todayDate.toString();
+
+			db.returnbook(db.searchbyAuthor(myReturnedBook).getID(), isToday);
+
 			menuoption();
-			
-			myScan.close();	
-			
+
+			myScan.close();
 
 		}
 
@@ -407,8 +429,6 @@ public class CLI {
 			menuoption();
 
 		}
-
-	
 
 		else {
 

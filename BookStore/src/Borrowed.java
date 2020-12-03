@@ -1,10 +1,37 @@
 
+
+/**
+ * 
+ * 
+ * 
+ *  This class is 
+ * @author jeancastro
+ *
+ */
+
+
+
 public class Borrowed {
 
 	Books mybook;
 	Readers myreader;
 	private String daterented;
 	private String datetreturn;
+	
+	
+	/**
+	 * 
+	 * Construsctor with attributes for the Borrowed Book
+	 * 
+	 * @param mybook
+	 *         This Book's Object
+	 * @param myreader
+	 *         This Reader's Object
+	 * @param daterented
+	 *         This Borrowed Rented Date
+	 * @param datereturn
+	 *         This Borrowed Returned Date
+	 */
 
 	public Borrowed(Books mybook, Readers myreader, String daterented, String datereturn) {
 
