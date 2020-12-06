@@ -182,7 +182,8 @@ public class CLI {
 					 
 					
 				}
-				 
+				System.out.println(" ");
+				menuoption();
 				
 
 				if (choice.equals("2")) {
@@ -285,8 +286,29 @@ public class CLI {
 		else if (option == 3) {
 
 			System.out.println(" Please enter Book Borrowed Name ");
-		}
+			
+			Scanner myScanner = new Scanner(System.in);
+			String Bookname = myScanner.nextLine();
 
+			if (db.searchbyAuthor(Bookname) == null) {
+				System.out.println(Bookname + " does not exist");
+				searchmenu();
+
+			} else if (db.searchbyAuthor(Bookname).isBorrowed() == true) {
+				
+				db.searchrborrowedbook(db.searchbyAuthor(Bookname));
+				System.out.println(" ");
+				menuoption();
+			
+		} else if (db.searchbyAuthor(Bookname).isBorrowed() == false) {
+			
+			System.out.println("This book: " + Bookname +  " wasn't borrowed");
+			
+			menuoption();
+	}
+
+			
+			
 		else if (option == 4) {
 
 			menuoption();
@@ -298,7 +320,7 @@ public class CLI {
 			searchmenu();
 
 		}
-
+		}
 	}
 
 	/**

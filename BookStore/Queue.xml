@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+
+
 <Queues>
-<book id="1">
-<readerid>6</readerid>
-</book>
-<book id="6">
-<readerid>6</readerid>
-</book>
-<book id="8">
-<readerid>6</readerid>
-<readerid>1</readerid>
-</book>
-<book id="4">
-<readerid>6</readerid>
-</book>
+
+
+
 </Queues>

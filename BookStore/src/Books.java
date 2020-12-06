@@ -15,8 +15,6 @@ public class Books {
 
 	MyLinkedList queue ;
 
-	public Books() {
-	}
 
 	private String ID;
 	private String Author;
@@ -25,23 +23,7 @@ public class Books {
 	private boolean Borrowed;
 	
 	
-	/**
-	 * This method return the Book's QUEUE
-	 * @return this book's queue
-	 */
-
-	public MyLinkedList getQueue() {
-		return queue;
-	}
 	
-	/**
-	 * This method se the Book's queue
-	 * @param this book's queue
-	 */
-
-	public void setQueue(MyLinkedList queue) {
-		this.queue = queue;
-	}
 
 	/**
 	 * Construsctor with attributes for the Book
@@ -67,6 +49,25 @@ public class Books {
 		queue = new MyLinkedList();
 	}
 
+	
+	
+	/**
+	 * This method return the Book's QUEUE
+	 * @return this book's queue
+	 */
+
+	public MyLinkedList getQueue() {
+		return queue;
+	}
+	
+	/**
+	 * This method se the Book's queue
+	 * @param this book's queue
+	 */
+
+	public void setQueue(MyLinkedList queue) {
+		this.queue = queue;
+	}
 	/**
 	 * This method return Borrwed boolean
 	 * 

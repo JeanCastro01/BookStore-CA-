@@ -2,12 +2,7 @@
 <borroweds>
 <book id="8">
 <daterented>Tue Dec 01 23:00:00 GMT 2020</daterented>
-<datereturned>Wed Dec 02 10:00:00 GMT 2020</datereturned>
+<datereturned>Sun Dec 06 19:00:00 GMT 2020</datereturned>
 <reader>6</reader>
-</book>
-<book id="8">
-<daterented>Wed Dec 02 10:00:00 GMT 2020</daterented>
-<datereturned>Wed Dec 02 10:00:00 GMT 2020</datereturned>
-<reader>9</reader>
 </book>
 </borroweds>

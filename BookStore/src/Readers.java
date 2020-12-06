@@ -43,6 +43,10 @@ public class Readers {
 		this.email = email;
 		this.phone = phone;
 	}
+	/**
+	 * this method return the reader ID
+	 * @return this reader's ID
+	 */
 
 	public String getID() {
 		return ID;
@@ -51,7 +55,10 @@ public class Readers {
 	public void setID(String ID) {
 		this.ID = ID;
 	}
-
+/**
+ * this method retunr the Reader's First Name
+ * @return this Reader's firstname
+ */
 	public String getFirstname() {
 		return firstname;
 	}
@@ -60,6 +67,10 @@ public class Readers {
 		this.firstname = firstname;
 	}
 
+	/**
+	 * this methos returns the Reader's Last Name
+	 * @return this reader's last name
+	 */
 	public String getLastname() {
 		return lastname;
 	}
@@ -67,7 +78,10 @@ public class Readers {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-
+/**
+ * this method return the Reader's email
+ * @return this reader's email
+ */
 	public String getEmail() {
 		return email;
 	}
@@ -75,7 +89,10 @@ public class Readers {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+/**
+ * this method return the reader's phone
+ * @return this reader's phone
+ */
 	public String getPhone() {
 		return phone;
 	}

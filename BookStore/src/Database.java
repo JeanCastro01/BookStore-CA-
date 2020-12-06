@@ -22,8 +22,8 @@ import org.w3c.dom.Text;
 
 public class Database {
 
-	Readers reader = new Readers();
-	Books book = new Books();
+	Readers reader;
+	Books book;
 	Borrowed borrowed;
 
 	ArrayList<Readers> myReaders = new ArrayList<Readers>();
@@ -287,6 +287,7 @@ public class Database {
 	 */
 	public void alphabeticalorderReader() {
 
+
 		for (int i = 0; i < myReaders.size(); i++) {
 
 			for (int j = 0; j < myReaders.size() - 1; j++)
@@ -307,8 +308,13 @@ public class Database {
 			System.out.println("\n" + myReaders.get(i).getFirstname());
 		}
 	}
-
+/**
+ * This methos set the borrowed true if the book is borrowed
+ * @param this book
+ * @throws ParserConfigurationException
+ */
 	public void setTrue(Books books) throws ParserConfigurationException {
+
 
 		for (int i = 0; i < myBooks.size(); i++) {
 
@@ -322,7 +328,13 @@ public class Database {
 		}
 
 	}
-
+	/**
+	 * this method write the new file borrowed.xml with the borrowed updated
+	 * @throws ParserConfigurationException
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws TransformerException
+	 */
 	public void setBorrowed()
 			throws ParserConfigurationException, FileNotFoundException, IOException, TransformerException {
 
@@ -392,7 +404,9 @@ public class Database {
 		creatingBorrowedXML();
 
 	}
-
+/**
+ * this method print the ID readers in order
+ */
 	public void IDorderReaders() {
 
 		for (int i = 0; i < myReaders.size(); i++) {
@@ -414,7 +428,11 @@ public class Database {
 			System.out.println("\n" + myReaders.get(i).getID());
 		}
 	}
-
+/**
+ * this method returns the books searched by the user
+ * @param this Author's boook
+ * @return
+ */
 	public Books searchbyAuthor(String Author) {
 
 		Books searchedBook = null;
@@ -438,7 +456,11 @@ public class Database {
 		return null;
 
 	}
-
+/**
+ * this method returns the reader searched by the user
+ * @param this reader Name
+ * @return
+ */
 	public Readers searchbyname(String Name) {
 
 		Readers searchedname = null;
@@ -460,6 +482,9 @@ public class Database {
 
 	}
 
+	/**
+	 * this method is responsible to reader from the queue.xml and store in the book's queue
+	 */
 	public void readingqueue() {
 
 		/*
@@ -478,12 +503,14 @@ public class Database {
 
 			// Read root element
 
-			System.out.println(doc.getDocumentElement().getNodeName());
+			System.out.println( doc.getDocumentElement().getNodeName());
 
 			// read array of students elements
 			// this array is called Nodelist
 
 			NodeList nList = doc.getElementsByTagName("book");
+			
+			
 
 			for (int i = 0; i < nList.getLength(); i++) {
 				Node nNode = nList.item(i);
@@ -499,26 +526,30 @@ public class Database {
 
 					readerid = eElement.getElementsByTagName("readerid").item(0).getTextContent();
 
-					Books book = searchbyAuthor(bookid);
+					book = searchbyAuthor(bookid);
 
-					Readers readers = searchbyname(readerid);
+					reader = searchbyname(readerid);
 
-					for (int j = 0; j < myBooks.size(); j++) {
-						if (myBooks.get(j).getID().equals(book.getID()))
-							;
-
-						myBooks.get(j).getQueue().addLast(readers);
-
+					for (Books books : myBooks) {
+						if (books.getID().equals(book.getID())) {
+							books.getQueue().addLast(reader);
+							
+						}
 					}
+
+
 
 				}
 			}
+
 		} catch (Exception e) {
 
 		}
 
 	}
-
+/**
+ * this method is responsible to reader from the borrowed.xml and store to the array myBorrowed
+ */
 	public void readingborrowed() {
 
 		try {
@@ -568,15 +599,18 @@ public class Database {
 		}
 
 	}
-
+/**
+ * this method is responsible to add the Reader to the queue if the book is already borrowed
+ * @param this searchbyname's is the reader
+ * @param this searchbyAuthor's is the book
+ * @throws TransformerException
+ * @throws ParserConfigurationException
+ */
 	public void waitingList(Readers searchbyname, Books searchbyAuthor)
 			throws TransformerException, ParserConfigurationException {
 
 		/*
 		 * 1 - find the book in my book array
-		 * 
-		 * 
-		 * 
 		 * 2 - get the book 3 - access the book queue and add Reader
 		 */
 
@@ -584,12 +618,8 @@ public class Database {
 
 			if (myBooks.get(i).getID().equals(searchbyAuthor.getID())) {
 
-				System.out.println(myBooks.get(i).getTitle());
-				
-
 				myBooks.get(i).getQueue().addLast(searchbyname);
-
-			//	System.out.println(myBooks.get(i).getQueue().size());
+			
 
 				writingtoqueue();
 			}
@@ -597,7 +627,9 @@ public class Database {
 		}
 
 	}
-
+/**
+ * this method is responsible to write in the queue.xml with the book's queue updated
+ */
 	public void writingtoqueue() {
 		try {
 
@@ -607,7 +639,6 @@ public class Database {
 			Document xmldoc = docBuilder.newDocument();
 
 			Element rootElement = xmldoc.createElement("Queues");
-			
 
 			Element mainElement = null;
 			Element booktnameText1 = null;
@@ -616,7 +647,6 @@ public class Database {
 
 				mainElement = xmldoc.createElement("book");
 				mainElement.setAttribute("id", myBooks.get(i).getID());
-				
 
 				for (int j = 0; j < myBooks.get(i).getQueue().size(); j++) {
 
@@ -631,7 +661,7 @@ public class Database {
 			}
 
 			xmldoc.appendChild(rootElement);
-			
+
 			DOMSource source = new DOMSource(xmldoc);
 
 			String path2 = "Queue.xml";
@@ -645,13 +675,21 @@ public class Database {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.transform(source, result);
 
-			System.out.println("Write data sucess to file:" + path2);
+			System.out.println("The" + path2 + "Was updated with the new Reader in the Queue");
 		} catch (Exception e) {
 
 		}
 
 	}
-
+/**
+ * this method is responsible to update the borrowed.xml with the datereturned and to check which is the next reader in the queue for the book
+ * @param this myReturnedBook is the book returned
+ * @param this ReturnedDate is the returned date
+ * @throws FileNotFoundException
+ * @throws ParserConfigurationException
+ * @throws IOException
+ * @throws TransformerException
+ */
 	public void returnbook(String myReturnedBook, String ReturnedDate)
 			throws FileNotFoundException, ParserConfigurationException, IOException, TransformerException {
 
@@ -702,9 +740,27 @@ public class Database {
 
 					creatingBorrowedXML();
 				}
+				
+				
 
 			}
 
 		}
 	}
+
+
+public void searchrborrowedbook(Books borrowedbook) {
+	
+	     System.out.println(borrowedbook.getTitle());
+
+	     for (int i = 0; i < myBorrowed.size(); i++) {
+
+		//if (myBorrowed.get(i).getMybook().equals(borrowedbook)) {
+
+			System.out.println("This book was borrowed to: " + myBorrowed.get(i).getMyreader().getFirstname());
+	
+		}
+	}
 }
+//}
+
