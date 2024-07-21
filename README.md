@@ -23,10 +23,6 @@ The **Book Store** project is a point-of-sale (POS) system developed in Java for
 - **`Borrowed.xml`**: XML file tracking books that are currently borrowed.
 - **`Queue.xml`**: XML file for managing a queue of transactions or operations.
 
-## Recent Commits
-
-- **Last Commit Message:** Checking borrowed book
-- **Last Commit Date:** 4 years ago
 
 ## Getting Started
 
